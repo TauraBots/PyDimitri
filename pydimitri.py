@@ -175,7 +175,7 @@ class Dimitri(object):
         pose = {}
         for joint in self.joints:
             if joint:
-            	pose[joint] = joint.getAngle()
+            	pose[joint.servo_id] = joint.getAngle()
         return pose
 
     def enableTorques(self):
