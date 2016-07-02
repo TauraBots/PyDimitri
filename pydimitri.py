@@ -165,6 +165,7 @@ class Dimitri(object):
         for index in pose.keys():
             if index != 0:
                 self.joints[index].setGoalAngle(pose[index])
+        self.port.sendGoalAngles()
 
     def getPose(self):
 
