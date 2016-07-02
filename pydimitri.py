@@ -203,7 +203,8 @@ class Dimitri(object):
         motion.keyframes.insert(0,currPose)
         motion.generate()
         for frame in motion.allframes:
-            self.setPose(frame)
+            #self.setPose(frame)
+            print frame
             sleep(frame[0])
 
     def playMotionFile(self, filename):
