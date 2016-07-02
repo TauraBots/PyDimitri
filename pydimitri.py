@@ -139,15 +139,16 @@ class Dimitri(object):
         ''' Read the spring angles and compute
         the control value for the SEAs.
         '''
+	pass
 
         # Read all the springs
-        self.springs.receiveAngles()
+        # self.springs.receiveAngles()
 
         # Compute the PID control signal
-        self.left_lower_leg_sea.update()
-        self.right_lower_leg_sea.update()
-        self.left_upper_leg_sea.update()
-        self.right_upper_leg_sea.update()
+        # self.left_lower_leg_sea.update()
+        # self.right_lower_leg_sea.update()
+        # self.left_upper_leg_sea.update()
+        # self.right_upper_leg_sea.update()
 
     def update(self):
 
@@ -170,7 +171,7 @@ class Dimitri(object):
         ''' Get the current pose
         of the robot
         '''
-        self.receiveAngles()
+        self.receiveCurrAngles()
         pose = {}
         for joint_id in self.joints:
             pose[joint_id] = self.joints[joint_id].getAngle()
