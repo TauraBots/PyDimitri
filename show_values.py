@@ -2,15 +2,16 @@
 
 from pydimitri import *
 from time import time
+from math import pi
 
 d = Dimitri()
 
 t = time()
 while (True):
-    d.receiveAngles()
-    for index in d.joints:
-        if index:
-            print index+':'+d.joints[index].currValue, 
-        print time() - t
-        t = time()
+    d.receiveCurrAngles()
+    for joint in d.joints:
+	if joint:
+        	print str(joint.servo_id) + (':%3.0f' % (joint.currAngle*180/pi)), 
+    print time() - t
+    t = time()
 
