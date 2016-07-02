@@ -40,7 +40,7 @@ class Dimitri(object):
     left_leg = None
     right_leg = None
     springs = None
-    joints = [None] * 120
+    joints = [None] * 200
 
     def __init__(self):
 
@@ -173,8 +173,9 @@ class Dimitri(object):
         '''
         self.receiveCurrAngles()
         pose = {}
-        for joint_id in self.joints:
-            pose[joint_id] = self.joints[joint_id].getAngle()
+        for joint in self.joints:
+            if joint:
+            	pose[joint] = joint.getAngle()
         return pose
 
     def enableTorques(self):
