@@ -1,4 +1,4 @@
- Dimitri's Joint Scheme
+Dimitri's Joint Scheme
 -=-=-=-=-=-=-=-=-=-=-=-=-
 
 This document explains the joint scheme of Dimitri. Dimitri is a humanoid robot
@@ -7,23 +7,26 @@ link mechanism.
 
 The table below lists the ids of each servomotor and elastic element:
 
-joint         right left
--------------------------
- FOOT_ROLL      11    12
- FOOT_PITCH     13    14
- LOWER_LEG      15    16
- UPPER_LEG      21    22
- LEG_ROLL       23    24
- LEG_PITCH      25    26
- LEG_YAW        27    28
- ARM_ROLL       31    32
- ARM_PITCH      33    34
- ARM_YAW        35    36
- ELBOW          41    42
- WAIST_ROLL     51
- WAIST_PITCH    52
- WAIST_YAW      53
- NECK_PITCH     61
- NECK_YAW       62
+joint         right left       right_zero            left_zero
+-------------------------------------------------------------------
+FOOT_ROLL      11    12       4096NegFora           6125NegFora
+FOOT_PITCH     13    14       4500PosTras           6030PosTras
+LOWER_LEG      15    16       6627PosBaixo          5255PosBaixo
+UPPER_LEG      21    22       5005NegBaixo          7682NegBaixo
+LEG_ROLL       23    24       4629PosFora           6150PosFora
+LEG_PITCH      25    26       6370NegTras           6390NegTras
+LEG_YAW        27    28       8044PosFora           4220PosFora
+ARM_ROLL       31    32       4587PosFora           5930PosFora
+ARM_PITCH      33    34       7192NegTras           6890NegTras
+ARM_YAW        35    36       5136PosFora           6620PosFora
+ELBOW          41    42       4547NegFrente         7790NegFrente
+
+WAIST_ROLL     51             8055PosEsquerda
+WAIST_PITCH    52             7513NegFrente
+WAIST_YAW      53             4584PosDireita
+NECK_PITCH     61             7174PosBaixo
+NECK_YAW       62             7777PosEsquerda
 
 
+positivo para fora
+31 motores ao total
