@@ -8,16 +8,24 @@ class Motion(object):
         self.allframes = []
         self.period = 0.050
     def generate(self):
-        for i in range(len(keyframes)):
-            self.allframes.append(keyframe[i])
-            steps = keyframe[TIME] / self.period
+        self.allframes = []
+        for i in range(len(self.keyframes)-1):
+            self.allframes.append(self.keyframes[i])
+            steps = int(self.keyframes[i][TIME] / self.period)
             for j in range(steps):
                 frame = {}
-                for joint_id in keyframe.keys():
+                for joint_id in self.keyframes[i].keys():
                     frame[joint_id] = self.interpolate(\
-                            keyframe[i][joint_id], keyframe[i+1][joint_id],
+                            self.keyframes[i][joint_id], self.keyframes[i+1][joint_id],
                             steps, j)
                 self.allframes.append(frame)
+        self.allframes.append(self.keyframes[-1])
+        self.allframes[-1][TIME] = self.period
+
+        #gambiarra period fix
+        for frame in self.allframes:
+            frame[TIME] = self.period
+
     def interpolate(self, start, end, steps, i):
         step = (end - start) / steps
         return start + step*i
@@ -29,5 +37,3 @@ class Motion(object):
         thefile = open(filename, 'r')
         self.keyframes = pickle.load(thefile)
         thefile.close()
-
-

@@ -2,6 +2,8 @@ from PyDynamixel import Joint, DxlComm
 from pysea import Spring, SEA
 from math import pi
 from motion import Motion
+from time import sleep
+from copy import deepcopy
 
 # Foot ids
 RIGHT_FOOT_ROLL, LEFT_FOOT_ROLL, \
@@ -42,18 +44,15 @@ class Dimitri(object):
     springs = None
     joints = [None] * 200
 
-    def __init__(self):
+    def __init__(self, baudrate):
 
         ''' This class implements the low level
         control for the joints of Dimitri robot.
         '''
 
         # Ports
-	self.port = DxlComm('/dev/ttyUSB0', 8)
-        # self.trunk = DxlComm('/dev/ttyS11', 8)
-        # self.left_leg = DxlComm('/dev/ttyS4', 8)
-        # self.right_leg = DxlComm('/dev/ttyS5', 8)
-        # self.springs = DxlComm('/dev/ttyS6', 8)
+        self.port = DxlComm('/dev/ttyUSB1', baudrate)
+
 
         # Feet
         self.joints[RIGHT_FOOT_ROLL] = Joint(RIGHT_FOOT_ROLL, 4096)
@@ -164,7 +163,10 @@ class Dimitri(object):
         '''
         for index in pose.keys():
             if index != 0:
-                self.joints[index].setGoalAngle(pose[index])
+                try:
+                    self.joints[index].setGoalAngle(pose[index])
+                except:
+                    pass
         self.port.sendGoalAngles()
 
     def getPose(self):
@@ -200,15 +202,17 @@ class Dimitri(object):
     def playMotion(self, motion):
         currPose = self.getPose()
         currPose[0] = 1.0
+        backup = deepcopy(motion.keyframes)
         motion.keyframes.insert(0,currPose)
         motion.generate()
         for frame in motion.allframes:
-            #self.setPose(frame)
-            print frame
+            self.setPose(frame)
+            #print frame
+            print frame[0]
             sleep(frame[0])
+        motion.keyframes = backup
 
     def playMotionFile(self, filename):
         motion = Motion()
         motion.read(filename)
         self.playMotion(motion)
-
